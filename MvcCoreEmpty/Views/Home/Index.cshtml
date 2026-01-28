@@ -1,2 +1,12 @@
 ﻿<h1>HOME</h1>
-<h2>Estas en casita</h2>
+<h2 id="mensajevista">Mensaje en vista</h2>
+<button class="btn btn-danger" id="botonvista">Pulsar en View</button>
+<script>
+    $(document).ready(function()
+    {
+        $("#botonvista").click(function()
+        {
+            $("#mensajevista").text("Boton pulsado en view");
+        })
+    })
+</script>
