@@ -1,12 +1,25 @@
-﻿<h1>HOME</h1>
+﻿@section styles
+{
+    <style>
+        h2{
+            background-color:lightblue;
+        }
+    </style>
+}
+
+<h1>HOME</h1>
 <h2 id="mensajevista">Mensaje en vista</h2>
 <button class="btn btn-danger" id="botonvista">Pulsar en View</button>
-<script>
-    $(document).ready(function()
-    {
-        $("#botonvista").click(function()
+
+@section script
+{
+    <script>
+        $(document).ready(function()
         {
-            $("#mensajevista").text("Boton pulsado en view");
+            $("#botonvista").click(function()
+            {
+                $("#mensajevista").text("Boton pulsado en view");
+            })
         })
-    })
-</script>
+    </script>
+}

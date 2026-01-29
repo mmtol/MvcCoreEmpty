@@ -12,6 +12,7 @@
         <link href="~/css/bootstrap.min.css" rel="stylesheet">
         <meta name="theme-color" content="#712cf9">
         <link href="~/css/sticky.css" rel="stylesheet">
+        @RenderSection("styles", false)
     </head>
     <body class="d-flex flex-column h-100">
         <header>
@@ -23,9 +24,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-                            <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Home</a> </li>
-                            <li class="nav-item"> <a class="nav-link" href="#">Link</a> </li>
-                            <li class="nav-item"> <a class="nav-link disabled" aria-disabled="true">Disabled</a> </li>
+                            <li class="nav-item"> @Html.ActionLink("Home", "Index", "Home") </li>
+                        <li class="nav-item"> @Html.ActionLink("Vista 1", "Vista1", "Home") </li>
+                        <li class="nav-item"> @Html.ActionLink("Vista 2", "Vista2", "Home") </li>
                         </ul>
                         <form class="d-flex" role="search">
                             <input class="form-control me-2" type="search"
@@ -41,6 +42,14 @@
         <main class="flex-shrink-0">
             <div class="container">
                 <h1 class="mt-5" id="mensaje">Zona de vistas</h1>
+                @if (IsSectionDefined("images"))
+                {
+                    @RenderSection("images", false)
+                }
+                else
+                {
+                    <img src="~/images/vaca.jpg" style="width: 150px; height: 150px"/>
+                }
                 <button id="botonlayout" class="btn btn-warning">Boton layout</button>
                 @RenderBody()
             </div>
@@ -51,6 +60,7 @@
         <script src="~/js/bootstrap.bundle.min.js"
                 class="astro-vvvwv3sm"></script>
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        @RenderSection("script", false)
         <script>
             $(document).ready(function() 
             {
