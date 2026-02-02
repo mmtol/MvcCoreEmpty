@@ -1,0 +1,30 @@
+﻿@model Enfermo
+
+<h1>Details</h1>
+
+@if (Model != null)
+{
+    <table>
+        <thead>
+            <tr>
+                <th>Inscripcion</th>
+                <th>Apellido</th>
+                <th>Direccion</th>
+                <th>Fecha nacimiento</th>
+                <th>Sexo</th>
+                <th>NSS</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@Model.Inscripcion</td>
+                <td>@Model.Apellido</td>
+                <td>@Model.Direccion</td>
+                <td>@Model.FechaNac</td>
+                <td>@Model.Sexo</td>
+                <td>@Model.Nss</td>
+            </tr>
+        </tbody>
+    </table>
+}
