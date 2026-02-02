@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.IdentityModel.Tokens;
 using MvcCoreLinqToSql.Models;
 using System.Data;
 
@@ -100,6 +101,48 @@ namespace MvcCoreLinqToSql.Repositories
                 }
 
                 return emplados;
+            }
+        }
+
+        public ResumenEmpleados GetEmpleadosOficio(string oficio)
+        {
+            var consulta = from datos in tablaEmpleados.AsEnumerable()
+                           where datos.Field<string>("OFICIO") == oficio
+                           select datos;
+
+            //quiero ordenar empleados por su salario 
+            if (consulta.IsNullOrEmpty())
+            {
+                return null;
+            }
+            else
+            {
+                consulta.OrderBy(z => z.Field<int>("SALARIO"));
+                int personas = consulta.Count();
+                int max = consulta.Max(x => x.Field<int>("SALARIO"));
+                double media = consulta.Average(x => x.Field<int>("SALARIO"));
+                List<Empleado> empleados = new List<Empleado>();
+                foreach (var fila in consulta)
+                {
+                    Empleado e = new Empleado
+                    {
+                        IdEmpleado = fila.Field<int>("EMP_NO"),
+                        Apellido = fila.Field<string>("APELLIDO"),
+                        Oficio = fila.Field<string>("OFICIO"),
+                        Salario = fila.Field<int>("SALARIO"),
+                        IdDepartamento = fila.Field<int>("DEPT_NO")
+                    };
+
+                    empleados.Add(e);
+                }
+                ResumenEmpleados resume = new ResumenEmpleados
+                {
+                    Personas = personas,
+                    MaximoSalario = max,
+                    MediaSalario = media,
+                    Empleados = empleados
+                };
+                return resume;
             }
         }
     }

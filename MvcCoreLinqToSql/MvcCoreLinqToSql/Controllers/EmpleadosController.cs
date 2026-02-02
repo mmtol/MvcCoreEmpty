@@ -30,6 +30,11 @@ namespace MvcCoreLinqToSql.Controllers
             return View();
         }
 
+        public IActionResult DatosEmpleados()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult BuscadorEmpleados(string oficio, int salario)
         {
@@ -41,6 +46,17 @@ namespace MvcCoreLinqToSql.Controllers
             }
 
             return View(emps);
+        }
+
+        [HttpPost]
+        public IActionResult DatosEmpleados(string oficio)
+        {
+            ResumenEmpleados resume = repo.GetEmpleadosOficio(oficio);
+            if (resume == null)
+            {
+                ViewData["Mensaje"] = "No existe ese oficio";
+            }
+            return View(resume);
         }
     }
 }
