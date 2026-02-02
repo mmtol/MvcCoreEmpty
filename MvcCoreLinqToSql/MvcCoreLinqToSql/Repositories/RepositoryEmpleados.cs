@@ -70,5 +70,37 @@ namespace MvcCoreLinqToSql.Repositories
 
             return emp;
         }
+
+        public List<Empleado> GetEmpleadoOficioSalario(string oficio, int salario)
+        {
+            var consulta = from datos in tablaEmpleados.AsEnumerable()
+                           where datos.Field<string>("OFICIO") == oficio
+                           && datos.Field<int>("SALARIO") >= salario
+                           select datos;
+            if (consulta.Count() == 0)
+            {
+                //siempre devolvemos null
+                return null;
+            }
+            else
+            {
+                List<Empleado> emplados = new List<Empleado>();
+                foreach (var fila in consulta)
+                {
+                    Empleado e = new Empleado
+                    {
+                        IdEmpleado = fila.Field<int>("EMP_NO"),
+                        Apellido = fila.Field<string>("APELLIDO"),
+                        Oficio = fila.Field<string>("OFICIO"),
+                        Salario = fila.Field<int>("SALARIO"),
+                        IdDepartamento = fila.Field<int>("DEPT_NO")
+                    };
+
+                    emplados.Add(e);
+                }
+
+                return emplados;
+            }
+        }
     }
 }

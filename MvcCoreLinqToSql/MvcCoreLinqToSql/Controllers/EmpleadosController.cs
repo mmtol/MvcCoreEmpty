@@ -21,10 +21,26 @@ namespace MvcCoreLinqToSql.Controllers
 
         public IActionResult Details(int id)
         {
-            int num = 99;
-
             Empleado empleado = repo.FindEmpleado(id);
             return View(empleado);
+        }
+
+        public IActionResult BuscadorEmpleados()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult BuscadorEmpleados(string oficio, int salario)
+        {
+            List<Empleado> emps = repo.GetEmpleadoOficioSalario(oficio, salario);
+
+            if (emps == null)
+            {
+                ViewData["Mensaje"] = "No existen empleados con el oficio '" + oficio + "' y salario mayor a '" + salario + "'";
+            }
+
+            return View(emps);
         }
     }
 }
