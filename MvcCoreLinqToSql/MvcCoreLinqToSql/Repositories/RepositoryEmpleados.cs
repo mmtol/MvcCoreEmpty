@@ -145,5 +145,20 @@ namespace MvcCoreLinqToSql.Repositories
                 return resume;
             }
         }
+
+        public List<string> GetOficios()
+        {
+            var consulta = (from datos in tablaEmpleados.AsEnumerable()
+                           select datos.Field<string>("OFICIO")).Distinct();
+            //ahora mismo ya tenemos lo que necesitamos, un cnjunto de string
+            //la norma suele ser devolver la coleccion generica a List<T>
+            //return consulta.ToList();
+            List<string> oficios = new List<string>();
+            foreach (string of in consulta)
+            {
+                oficios.Add(of);
+            }
+            return oficios;
+        }
     }
 }

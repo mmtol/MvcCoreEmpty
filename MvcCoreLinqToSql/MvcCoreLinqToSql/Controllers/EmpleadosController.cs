@@ -32,6 +32,8 @@ namespace MvcCoreLinqToSql.Controllers
 
         public IActionResult DatosEmpleados()
         {
+            List<string> oficios = repo.GetOficios();
+            ViewData["Oficios"] = oficios;
             return View();
         }
 
@@ -56,6 +58,9 @@ namespace MvcCoreLinqToSql.Controllers
             {
                 ViewData["Mensaje"] = "No existe ese oficio";
             }
+            List<string> oficios = repo.GetOficios();
+            ViewData["Oficios"] = oficios;
+            ViewData["Oficio"] = oficio;
             return View(resume);
         }
     }

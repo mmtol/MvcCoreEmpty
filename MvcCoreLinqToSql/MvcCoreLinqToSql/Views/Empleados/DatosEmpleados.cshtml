@@ -1,12 +1,24 @@
 ﻿@model ResumenEmpleados
+@{
+    List<string> oficios = ViewData["Oficios"] as List<string>;
+}
 
 <h1>Datos oficio</h1>
 
 <form method="post">
     <label>Oficio</label>
-    <input type="text" name="oficio"/>
+    <select name="oficio">
+        <option>-- Elige un oficio --</option>
+        @foreach(string of in oficios)
+        {
+            <option>@of</option>
+        }
+        </select>
+    @* <input type="text" name="oficio"/> *@
     <button>Buscar</button>
 </form>
+
+<h2>@ViewData["Oficio"]</h2>
 
 @if (Model != null)
 {
